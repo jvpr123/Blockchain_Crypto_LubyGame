@@ -21,12 +21,12 @@ contract LubyGame is ERC20, Ownable {
         bank = Token(address(this));
     }
 
-    function mintLbc(uint256 amount) public returns (bool) {
+    function mintLbc(uint256 amount) public returns (Token) {
         Token contractAddress = Token(address(this));
 
         contractAddress.mint(msg.sender, amount);
 
-        return true;
+        return contractAddress;
     }
 
     function startGame(uint256 amount) public {

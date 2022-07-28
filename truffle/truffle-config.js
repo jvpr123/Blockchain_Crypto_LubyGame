@@ -3,6 +3,7 @@ var mnemonic =
   "sail access oven pioneer blast annual vessel help method traffic novel bean";
 
 module.exports = {
+  contracts_build_directory: "../client/src/contracts",
   networks: {
     development: {
       host: "127.0.0.1",

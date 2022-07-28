@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Web3 from "web3";
 
 import LubyGameContract from "./contracts/LubyGame.json";
@@ -30,16 +30,37 @@ function App() {
     loadContract(web3);
   }, []);
 
-  const handleMint = async () =>
-    await contract.methods.mintLbc(10).send({ from: account });
+  const handleMint = async () => {
+    try {
+      await contract.methods
+        .mintLbc(web3.utils.toWei(web3.utils.toBN(1), "ether"))
+        .send({ from: account });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleStartGame = async () => {
+    try {
+      await contract.methods
+        .approve(web3.utils.toWei(web3.utils.toBN(1), "ether"))
+        .send({ from: account });
+
+      await contract.methods
+        .startGame(web3.utils.toWei(web3.utils.toBN(1), "ether"))
+        .send({ from: account });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleBalance = async () => {
     try {
-      await contract.methods.startGame(1).send({ from: account });
+      const balance = await contract.methods
+        .getBalanceIndividual()
+        .call({ from: account });
 
-      const bal = await contract.methods.getBalanceIndividual().call();
-
-      console.log(bal);
+      console.log(balance);
     } catch (error) {
       console.log(error);
     }
@@ -48,6 +69,7 @@ function App() {
   return (
     <>
       <button onClick={handleMint}>Mint</button>
+      <button onClick={handleStartGame}>Start Game</button>
       <button onClick={handleBalance}>Balance</button>
     </>
   );
