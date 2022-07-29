@@ -7,11 +7,13 @@ const Header = () => {
   const metamaskCtx = useContext(MetamaskContext);
 
   useEffect(() => {
-    metamaskCtx.handleAccountsConnection();
+    if (window.ethereum) {
+      metamaskCtx.handleAccountsConnection();
 
-    window.ethereum.on("accountsChanged", async () => {
-      await metamaskCtx.handleAccountsConnection();
-    });
+      window.ethereum.on("accountsChanged", async () => {
+        await metamaskCtx.handleAccountsConnection();
+      });
+    }
   }, [metamaskCtx]);
 
   return (

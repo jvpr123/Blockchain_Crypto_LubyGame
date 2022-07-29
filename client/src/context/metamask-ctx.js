@@ -1,14 +1,17 @@
 import { createContext, useState } from "react";
+
 import Web3 from "web3";
+import LubyGameContract from "./contracts/LubyGame.json";
 
 const MetamaskContext = createContext({
   isConnected: false,
   account: "",
   handleAccountsConnection: async () => {},
   handleRequestAccountConnection: async () => {},
+  handleGetContractInstance: async () => {},
 });
 
-export const MetamaskContextProvider = ({ children }) => {
+export const MetamaskContextProvider = async ({ children }) => {
   const web3 = new Web3(Web3.givenProvider);
 
   const [isConnected, setIsConnected] = useState(false);
@@ -46,6 +49,17 @@ export const MetamaskContextProvider = ({ children }) => {
     }
   };
 
+  const handleGetContractInstance = async () => {
+    const currentNetworkId = await web3.eth.net.getId();
+    const contract = new web3.eth.Contract(
+      LubyGameContract.abi,
+      LubyGameContract.networks[currentNetworkId] &&
+        LubyGameContract.networks[currentNetworkId].address
+    );
+
+    return contract;
+  };
+
   return (
     <MetamaskContext.Provider
       value={{
@@ -53,6 +67,7 @@ export const MetamaskContextProvider = ({ children }) => {
         account,
         handleAccountsConnection,
         handleRequestAccountConnection,
+        handleGetContractInstance,
       }}
     >
       {children}
