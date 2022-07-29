@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+
 import { Button, Modal } from "react-bootstrap";
 
-const InstallMetamaskModal = ({ toggle }) => {
+const InstallMetamaskModal = () => {
   const [show, setShow] = useState(false);
-
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
@@ -13,12 +13,16 @@ const InstallMetamaskModal = ({ toggle }) => {
   };
 
   useEffect(() => {
-    setShow(toggle);
-  }, [toggle]);
+    !window.ethereum ? handleShow() : handleClose();
+  }, []);
 
   return (
-    <Modal show={show} centered={true} onHide={handleClose}>
-      <Modal.Header closeButton>
+    <Modal
+      show={show}
+      centered={true}
+      onEnter={() => setTimeout(() => {}, 1000)}
+    >
+      <Modal.Header>
         <Modal.Title>Metamask extension required!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -32,9 +36,6 @@ const InstallMetamaskModal = ({ toggle }) => {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
         <Button variant="primary" onClick={handleRedirect}>
           Install Metamask
         </Button>

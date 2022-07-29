@@ -1,6 +1,19 @@
+import { useContext, useEffect } from "react";
+
+import MetamaskContext from "../../context/metamask-ctx";
 import { Navbar, Container, Button } from "react-bootstrap";
 
-const Header = ({ isConnected, connectMetamask }) => {
+const Header = () => {
+  const metamaskCtx = useContext(MetamaskContext);
+
+  useEffect(() => {
+    metamaskCtx.handleAccountsConnection();
+
+    window.ethereum.on("accountsChanged", async () => {
+      await metamaskCtx.handleAccountsConnection();
+    });
+  }, [metamaskCtx]);
+
   return (
     <Navbar className="p-4" bg="dark" variant="dark">
       <Container fluid>
@@ -9,12 +22,13 @@ const Header = ({ isConnected, connectMetamask }) => {
           <Navbar.Text>Play-To-Earn in Crypto</Navbar.Text>
         </Navbar.Brand>
         <Button
-          active={isConnected}
-          onClick={connectMetamask}
-          variant={isConnected ? "success" : "light"}
+          active={metamaskCtx.isConnected}
+          onClick={() => metamaskCtx.handleRequestAccountConnection()}
+          variant={metamaskCtx.isConnected ? "success" : "light"}
           size="lg"
         >
-          🦊 {isConnected ? "You're Connected" : "Connect to Metamask"}
+          🦊{" "}
+          {metamaskCtx.isConnected ? "You're Connected" : "Connect to Metamask"}
         </Button>
       </Container>
     </Navbar>
