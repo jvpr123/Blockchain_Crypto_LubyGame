@@ -13,7 +13,7 @@ const InstallMetamaskModal = ({ toggle }) => {
   };
 
   useEffect(() => {
-    toggle ? handleShow() : handleClose();
+    setShow(toggle);
   }, [toggle]);
 
   return (
