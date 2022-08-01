@@ -9,9 +9,14 @@ const Header = () => {
   useEffect(() => {
     if (window.ethereum) {
       metamaskCtx.handleAccountsConnection();
+      metamaskCtx.handleGetNetwork();
 
       window.ethereum.on("accountsChanged", async () => {
         await metamaskCtx.handleAccountsConnection();
+      });
+
+      window.ethereum.on("chainChanged", async () => {
+        await metamaskCtx.handleGetNetwork();
       });
     }
   }, [metamaskCtx]);

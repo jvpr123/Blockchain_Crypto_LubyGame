@@ -1,0 +1,92 @@
+{
+    "questions": {
+        "288756c0-6fe7-4b20-aab4-b05b27eab788": {
+            "id": "288756c0-6fe7-4b20-aab4-b05b27eab788",
+            "question": "In which year the famous Javascript language was created?",
+            "answers": [
+                {
+                    "content": "2000",
+                    "isCorrect": false
+                },
+                {
+                    "content": "1993",
+                    "isCorrect": false
+                },
+                {
+                    "content": "1995",
+                    "isCorrect": true
+                },
+                {
+                    "content": "1989",
+                    "isCorrect": false
+                }
+            ]
+        },
+        "289bd43d-d170-496a-9ece-9554526f6530": {
+            "id": "289bd43d-d170-496a-9ece-9554526f6530",
+            "question": "Which of the following options is not a relational database?",
+            "answers": [
+                {
+                    "content": "Amazon DynamoDB",
+                    "isCorrect": true
+                },
+                {
+                    "content": "MariaDB",
+                    "isCorrect": false
+                },
+                {
+                    "content": "Postgres",
+                    "isCorrect": false
+                },
+                {
+                    "content": "MySQL",
+                    "isCorrect": false
+                }
+            ]
+        },
+        "9497a812-9916-440b-ab7a-76b1256bfa48": {
+            "id": "9497a812-9916-440b-ab7a-76b1256bfa48",
+            "question": "Which of the following options is considered as a Backend-as-a-Service (BaaS)?",
+            "answers": [
+                {
+                    "content": "Apache Kafka",
+                    "isCorrect": false
+                },
+                {
+                    "content": "Google Firebase",
+                    "isCorrect": true
+                },
+                {
+                    "content": "IBM Watson",
+                    "isCorrect": false
+                },
+                {
+                    "content": "Vercel",
+                    "isCorrect": false
+                }
+            ]
+        },
+        "94963b96-24a7-4a77-91e8-3baf9e996261": {
+            "id": "94963b96-24a7-4a77-91e8-3baf9e996261",
+            "question": "Which of the following options is not a NodeJS backend framework?",
+            "answers": [
+                {
+                    "content": "AdonisJS",
+                    "isCorrect": false
+                },
+                {
+                    "content": "ExpressJS",
+                    "isCorrect": false
+                },
+                {
+                    "content": "NextJS",
+                    "isCorrect": true
+                },
+                {
+                    "content": "NestJS",
+                    "isCorrect": false
+                }
+            ]
+        }
+    }
+}
