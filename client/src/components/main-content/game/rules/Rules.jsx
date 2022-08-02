@@ -1,12 +1,10 @@
-import React from "react";
-
 const Rules = () => {
   return (
     <div>
       <div>
-        <h3>
+        <h2>
           Wanna play? Follow this instructions and pay attention to the rules:
-        </h3>
+        </h2>
       </div>
 
       <div>

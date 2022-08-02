@@ -1,6 +1,6 @@
 {
-    "questions": {
-        "288756c0-6fe7-4b20-aab4-b05b27eab788": {
+    "questions": [
+        {
             "id": "288756c0-6fe7-4b20-aab4-b05b27eab788",
             "question": "In which year the famous Javascript language was created?",
             "answers": [
@@ -22,7 +22,7 @@
                 }
             ]
         },
-        "289bd43d-d170-496a-9ece-9554526f6530": {
+        {
             "id": "289bd43d-d170-496a-9ece-9554526f6530",
             "question": "Which of the following options is not a relational database?",
             "answers": [
@@ -44,7 +44,7 @@
                 }
             ]
         },
-        "9497a812-9916-440b-ab7a-76b1256bfa48": {
+        {
             "id": "9497a812-9916-440b-ab7a-76b1256bfa48",
             "question": "Which of the following options is considered as a Backend-as-a-Service (BaaS)?",
             "answers": [
@@ -66,7 +66,7 @@
                 }
             ]
         },
-        "94963b96-24a7-4a77-91e8-3baf9e996261": {
+        {
             "id": "94963b96-24a7-4a77-91e8-3baf9e996261",
             "question": "Which of the following options is not a NodeJS backend framework?",
             "answers": [
@@ -88,5 +88,5 @@
                 }
             ]
         }
-    }
+    ]
 }

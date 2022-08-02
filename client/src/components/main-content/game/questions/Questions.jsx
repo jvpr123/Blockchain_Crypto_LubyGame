@@ -1,23 +1,18 @@
-import { questions } from "../../../../questions/questions.json";
+import { useContext } from "react";
 import { Card } from "react-bootstrap";
+
+import GameContext from "../../../../context/game-ctx";
+
+import InviteToStart from "../rules/InviteToStart";
 import Option from "./Option";
 
 const Questions = () => {
-  const data = questions["288756c0-6fe7-4b20-aab4-b05b27eab788"];
+  const { game } = useContext(GameContext);
 
   return (
-    <Card bg="dark" border="light" className="w-50 rounded p-4">
-      <Card.Header>
-        <Card.Title>
-          <h3>{data.question}</h3>
-        </Card.Title>
-      </Card.Header>
-
-      <Card.Body>
-        {data.answers.map((answer, index) => (
-          <Option key={index}>{answer.content}</Option>
-        ))}
-      </Card.Body>
+    <Card bg="dark" border="light" className="w-50 rounded-4 p-4">
+      {!game.isStarted && <InviteToStart />}
+      {game.isStarted && <Option />}
     </Card>
   );
 };

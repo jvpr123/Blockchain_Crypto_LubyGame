@@ -20,7 +20,8 @@ const AccountInfo = () => {
                 : "Disconnected"}
             </Badge>
             <Badge bg="info" text="dark" className="ms-4 p-3">
-              Network | {network && isConnected ? network : "Disconnected"}
+              Network |{" "}
+              {network && isConnected ? network.network : "Disconnected"}
             </Badge>
             <Badge bg="warning" text="dark" className="ms-4 p-3">
               Balance | {account.balance / 1e18}
