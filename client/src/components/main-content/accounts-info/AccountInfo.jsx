@@ -24,7 +24,7 @@ const AccountInfo = () => {
               {network && isConnected ? network.network : "Disconnected"}
             </Badge>
             <Badge bg="warning" text="dark" className="ms-4 p-3">
-              Balance | {account.balance / 1e18}
+              Balance | {(account.balance / 1e18).toFixed(2)} ETH
             </Badge>
           </div>
         </h2>

@@ -16,7 +16,7 @@ const GameStates = () => {
           Wrong Answers | {`${game.wrongAnswers} / ${game.totalQuestions}`}
         </Badge>
         <Badge bg="warning" text="dark" className="ms-4 p-3">
-          Game Balance | {game.gameBalance}
+          Game Balance | {(game.gameBalance / 1e18).toFixed(2)} LBC
         </Badge>
       </h2>
     </>

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 
 import GameContext from "../../../../context/game-ctx";

@@ -1,4 +1,4 @@
-import { createContext, useState, useReducer } from "react";
+import { createContext, useState, useReducer, useEffect, useMemo } from "react";
 
 import Web3 from "web3";
 import LubyGameContract from "../contracts/LubyGame.json";
@@ -36,7 +36,9 @@ const networkReducer = (latestState, action) => {
 };
 
 const MetamaskContext = createContext({
+  web3: {},
   isConnected: false,
+  contract: {},
   account: accountIntialState,
   network: networkIntialState,
   handleAccountsConnection: async () => {},
@@ -46,9 +48,10 @@ const MetamaskContext = createContext({
 });
 
 export const MetamaskContextProvider = ({ children }) => {
-  const web3 = new Web3(Web3.givenProvider);
+  const web3 = useMemo(() => new Web3(Web3.givenProvider), []);
 
   const [isConnected, setIsConnected] = useState(false);
+  const [contract, setContract] = useState({});
 
   const [account, dispatchAccount] = useReducer(
     accountReducer,
@@ -107,27 +110,32 @@ export const MetamaskContextProvider = ({ children }) => {
     }
   };
 
-  const handleGetContractInstance = async () => {
-    const currentNetworkId = await web3.eth.net.getId();
-    const contract = new web3.eth.Contract(
-      LubyGameContract.abi,
-      LubyGameContract.networks[currentNetworkId] &&
-        LubyGameContract.networks[currentNetworkId].address
-    );
+  useEffect(() => {
+    const handleGetContractInstance = async () => {
+      const currentNetworkId = await web3.eth.net.getId();
+      const contract = new web3.eth.Contract(
+        LubyGameContract.abi,
+        LubyGameContract.networks[currentNetworkId] &&
+          LubyGameContract.networks[currentNetworkId].address
+      );
 
-    return contract;
-  };
+      setContract(contract);
+    };
+
+    handleGetContractInstance();
+  });
 
   return (
     <MetamaskContext.Provider
       value={{
+        web3,
+        contract,
         isConnected,
         account,
         network,
         handleAccountsConnection,
         handleRequestAccountConnection,
         handleGetNetwork,
-        handleGetContractInstance,
       }}
     >
       {children}

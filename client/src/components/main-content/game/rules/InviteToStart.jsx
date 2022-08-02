@@ -1,12 +1,23 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Card, Button, OverlayTrigger } from "react-bootstrap";
 
 import MetamaskContext from "../../../../context/metamask-ctx";
+import GameContext from "../../../../context/game-ctx";
 
 import NetworkWarning from "../../../warnings/NetworkWarning";
 
 const InviteToStart = () => {
-  const { network } = useContext(MetamaskContext);
+  const { web3, contract, account, network } = useContext(MetamaskContext);
+  const { handleStartGame } = useContext(GameContext);
+
+  const toBN = (value) => web3.utils.toBN(value);
+  const toWei = (valueBN, unit) => web3.utils.toWei(valueBN, unit);
+
+  const handleClickBuyCoins = async () => {};
+
+  const handleClickStart = async () => {
+    handleStartGame(0);
+  };
 
   return (
     <>
@@ -23,16 +34,28 @@ const InviteToStart = () => {
           show={!network.isValid ? true : false}
           overlay={NetworkWarning}
         >
-          <Button
-            type="button"
-            variant="primary"
-            text="dark"
-            className="w-75 mx-auto my-3 p-4 roudend-4"
-            onClick={() => console.log("Start game triggered!")}
-            disabled={!network.isValid}
-          >
-            <h2>Start Game</h2>
-          </Button>
+          <div className="w-75">
+            <Button
+              type="button"
+              variant="warning"
+              text="dark"
+              className="w-100 mx-auto my-3 p-4 roudend-4"
+              onClick={handleClickBuyCoins}
+              disabled={!network.isValid}
+            >
+              <h2>Buy Coins to Play</h2>
+            </Button>
+            <Button
+              type="button"
+              variant="primary"
+              text="dark"
+              className="w-100 mx-auto my-3 p-4 roudend-4"
+              onClick={handleClickStart}
+              disabled={!network.isValid}
+            >
+              <h2>Start Game</h2>
+            </Button>
+          </div>
         </OverlayTrigger>
       </Card.Body>
     </>
