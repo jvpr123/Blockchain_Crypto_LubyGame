@@ -4,7 +4,7 @@ import { GameContextProvider } from "../../../context/game-ctx";
 
 import GameStates from "./states/GameStates";
 import Rules from "./rules/Rules";
-import Questions from "./questions/Questions";
+import PlayArea from "./questions/PlayArea";
 
 const Game = () => {
   return (
@@ -17,7 +17,7 @@ const Game = () => {
 
         <Card.Body className="d-flex justify-content-between align-items-start my-5">
           <Rules />
-          <Questions />
+          <PlayArea />
         </Card.Body>
       </Card>
     </GameContextProvider>

@@ -1,4 +1,10 @@
-import { createContext, useState, useReducer, useEffect, useMemo } from "react";
+import {
+  createContext,
+  useState,
+  useReducer,
+  useMemo,
+  useCallback,
+} from "react";
 
 import Web3 from "web3";
 import LubyGameContract from "../contracts/LubyGame.json";
@@ -102,6 +108,7 @@ export const MetamaskContextProvider = ({ children }) => {
   const handleGetNetwork = async () => {
     if (window.ethereum) {
       const network = await web3.eth.net.getNetworkType();
+      await handleGetContractInstance();
 
       dispatchNetwork({
         type: "CHANGE_NETWORK",
@@ -110,20 +117,16 @@ export const MetamaskContextProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const handleGetContractInstance = async () => {
-      const currentNetworkId = await web3.eth.net.getId();
-      const contract = new web3.eth.Contract(
-        LubyGameContract.abi,
-        LubyGameContract.networks[currentNetworkId] &&
-          LubyGameContract.networks[currentNetworkId].address
-      );
+  const handleGetContractInstance = useCallback(async () => {
+    const currentNetworkId = await web3.eth.net.getId();
+    const contract = new web3.eth.Contract(
+      LubyGameContract.abi,
+      LubyGameContract.networks[currentNetworkId] &&
+        LubyGameContract.networks[currentNetworkId].address
+    );
 
-      setContract(contract);
-    };
-
-    handleGetContractInstance();
-  });
+    setContract(contract);
+  }, [web3]);
 
   return (
     <MetamaskContext.Provider
@@ -136,6 +139,7 @@ export const MetamaskContextProvider = ({ children }) => {
         handleAccountsConnection,
         handleRequestAccountConnection,
         handleGetNetwork,
+        handleGetContractInstance,
       }}
     >
       {children}

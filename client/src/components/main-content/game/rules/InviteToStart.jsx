@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Card, Button, OverlayTrigger } from "react-bootstrap";
 
 import MetamaskContext from "../../../../context/metamask-ctx";
@@ -7,8 +7,8 @@ import GameContext from "../../../../context/game-ctx";
 import NetworkWarning from "../../../warnings/NetworkWarning";
 
 const InviteToStart = () => {
-  const { web3, contract, account, network } = useContext(MetamaskContext);
-  const { handleStartGame } = useContext(GameContext);
+  const { web3, network } = useContext(MetamaskContext);
+  const { game, handleStartGame } = useContext(GameContext);
 
   const toBN = (value) => web3.utils.toBN(value);
   const toWei = (valueBN, unit) => web3.utils.toWei(valueBN, unit);
@@ -16,7 +16,7 @@ const InviteToStart = () => {
   const handleClickBuyCoins = async () => {};
 
   const handleClickStart = async () => {
-    handleStartGame(0);
+    handleStartGame();
   };
 
   return (
@@ -51,7 +51,9 @@ const InviteToStart = () => {
               text="dark"
               className="w-100 mx-auto my-3 p-4 roudend-4"
               onClick={handleClickStart}
-              disabled={!network.isValid}
+              disabled={
+                !network.isValid || game.gameBalance < toWei(toBN(4e18))
+              }
             >
               <h2>Start Game</h2>
             </Button>

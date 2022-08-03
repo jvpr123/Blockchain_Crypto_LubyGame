@@ -61,26 +61,25 @@ const GameContext = createContext({
 });
 
 export const GameContextProvider = ({ children }) => {
-  const { contract } = useContext(MetamaskContext);
+  const { account, network, contract } = useContext(MetamaskContext);
   const [game, dispatchGame] = useReducer(gameReducer, gameInitialState);
 
-  const handleStartGame = (balance) => {
+  const handleStartGame = async () => {
     console.log("Start game");
-    console.log(contract);
+    await handleUpdateGameBalance();
     dispatchGame({
       type: "START_GAME",
       questions: MOCK_QUESTIONS,
-      balance,
     });
   };
 
-  const handleUpdateGameBalance = async () => {
-    if (contract.methods) {
+  const handleUpdateGameBalance = useCallback(async () => {
+    if (contract["_address"] && contract.methods) {
       const balance = await contract.methods.getBalanceIndividual().call();
       console.log(balance);
       dispatchGame({ type: "UPDATE_GAME_BALANCE", balance });
     }
-  };
+  }, [network.network, account.address]);
 
   return (
     <GameContext.Provider

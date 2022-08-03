@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { Card } from "react-bootstrap";
 
 import GameContext from "../../../../context/game-ctx";
@@ -6,7 +6,7 @@ import GameContext from "../../../../context/game-ctx";
 import InviteToStart from "../rules/InviteToStart";
 import Option from "./Option";
 
-const Questions = () => {
+const PlayArea = () => {
   const { game } = useContext(GameContext);
 
   return (
@@ -17,4 +17,4 @@ const Questions = () => {
   );
 };
 
-export default Questions;
+export default PlayArea;

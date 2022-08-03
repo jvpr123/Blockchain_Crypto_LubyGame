@@ -1,10 +1,23 @@
 import { useContext } from "react";
-import { Badge } from "react-bootstrap";
+import { OverlayTrigger, Badge } from "react-bootstrap";
 
+import MetamaskContext from "../../../../context/metamask-ctx";
 import GameContext from "../../../../context/game-ctx";
 
+import BalanceWarning from "../../../warnings/BalanceWarning";
+import { useEffect } from "react";
+
 const GameStates = () => {
-  const { game } = useContext(GameContext);
+  const { network } = useContext(MetamaskContext);
+  const { game, handleUpdateGameBalance } = useContext(GameContext);
+
+  useEffect(() => {
+    const update = async () => {
+      await handleUpdateGameBalance();
+    };
+
+    update();
+  }, [handleUpdateGameBalance]);
 
   return (
     <>
@@ -15,9 +28,20 @@ const GameStates = () => {
         <Badge bg="danger" text="light" className="ms-4 p-3">
           Wrong Answers | {`${game.wrongAnswers} / ${game.totalQuestions}`}
         </Badge>
-        <Badge bg="warning" text="dark" className="ms-4 p-3">
-          Game Balance | {(game.gameBalance / 1e18).toFixed(2)} LBC
-        </Badge>
+
+        <OverlayTrigger
+          placement="bottom-end"
+          show={network.isValid && game.gameBalance < 4e18}
+          overlay={BalanceWarning}
+        >
+          <Badge bg="warning" text="dark" className="ms-4 p-3">
+            Game Balance |{" "}
+            {game.gameBalance > 0
+              ? game.gameBalance.toFixed(2)
+              : game.gameBalance}{" "}
+            LBC
+          </Badge>
+        </OverlayTrigger>
       </h2>
     </>
   );
