@@ -5,7 +5,7 @@ import MetamaskContext from "./metamask-ctx";
 
 const gameInitialState = {
   isStarted: false,
-  questions: [],
+  questions: MOCK_QUESTIONS,
   totalQuestions: 0,
   currentQuestion: 0,
   rightAnswers: 0,
@@ -16,6 +16,7 @@ const gameInitialState = {
   handleBuyCoins: async () => {},
   handleUpdateGameBalance: async () => {},
   handleClaimBalance: async () => {},
+  handleVerifyAnswer: () => {},
 };
 
 const gameReducer = (latestState, action) => {
@@ -25,7 +26,7 @@ const gameReducer = (latestState, action) => {
       isStarted: true,
       questions: action.questions,
       totalQuestions: action.questions.length,
-      currentQuestion: 1,
+      currentQuestion: 0,
       gameBalance: action.balance,
     };
   }
@@ -79,13 +80,19 @@ export const GameContextProvider = ({ children }) => {
   // Calls startGame contract function to bet 4 LBC an start playing
   const handleStartGame = async () => {
     console.log("Start game");
-    await contract.methods.startGame(betValue).send(credentials);
-    await handleUpdateGameBalance();
+    // await contract.methods.startGame(betValue).send(credentials);
+    // await handleUpdateGameBalance();
 
     dispatchGame({
       type: "START_GAME",
       questions: MOCK_QUESTIONS,
     });
+  };
+
+  const handleVerifyAnswer = (option) => {
+    console.log(game.currentQuestion);
+    dispatchGame({ type: "REGISTER_RIGHT_ANSWER" });
+    console.log(game.currentQuestion);
   };
 
   // Calls mintLbc() and approve() contract functions simulating a token sale
@@ -123,6 +130,7 @@ export const GameContextProvider = ({ children }) => {
         handleBuyCoins,
         handleUpdateGameBalance,
         handleClaimBalance,
+        handleVerifyAnswer,
       }}
     >
       {children}
