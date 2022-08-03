@@ -4,7 +4,7 @@ import { GameContextProvider } from "../../../context/game-ctx";
 
 import GameStates from "./states/GameStates";
 import Rules from "./rules/Rules";
-import PlayArea from "./questions/PlayArea";
+import PlayArea from "./play-area/PlayArea";
 
 const Game = () => {
   return (

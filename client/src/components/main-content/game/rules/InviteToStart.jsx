@@ -7,17 +7,8 @@ import GameContext from "../../../../context/game-ctx";
 import NetworkWarning from "../../../warnings/NetworkWarning";
 
 const InviteToStart = () => {
-  const { web3, network } = useContext(MetamaskContext);
-  const { game, handleStartGame } = useContext(GameContext);
-
-  const toBN = (value) => web3.utils.toBN(value);
-  const toWei = (valueBN, unit) => web3.utils.toWei(valueBN, unit);
-
-  const handleClickBuyCoins = async () => {};
-
-  const handleClickStart = async () => {
-    handleStartGame();
-  };
+  const { network } = useContext(MetamaskContext);
+  const { game, handleBuyCoins, handleStartGame } = useContext(GameContext);
 
   return (
     <>
@@ -40,7 +31,7 @@ const InviteToStart = () => {
               variant="warning"
               text="dark"
               className="w-100 mx-auto my-3 p-4 roudend-4"
-              onClick={handleClickBuyCoins}
+              onClick={handleBuyCoins}
               disabled={!network.isValid}
             >
               <h2>Buy Coins to Play</h2>
@@ -50,9 +41,9 @@ const InviteToStart = () => {
               variant="primary"
               text="dark"
               className="w-100 mx-auto my-3 p-4 roudend-4"
-              onClick={handleClickStart}
+              onClick={handleStartGame}
               disabled={
-                !network.isValid || game.gameBalance < toWei(toBN(4e18))
+                !network.isValid || (game.gameBalance < 4 && game.gameBet < 4)
               }
             >
               <h2>Start Game</h2>

@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap";
 import GameContext from "../../../../context/game-ctx";
 
 import InviteToStart from "../rules/InviteToStart";
-import Option from "./Option";
+import Option from "./questions/Option";
 
 const PlayArea = () => {
   const { game } = useContext(GameContext);

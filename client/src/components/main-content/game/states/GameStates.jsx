@@ -30,18 +30,29 @@ const GameStates = () => {
         </Badge>
 
         <OverlayTrigger
-          placement="bottom-end"
-          show={network.isValid && game.gameBalance < 4e18}
+          placement="left-start"
+          show={
+            network.isValid &&
+            game.gameBalance < 4e18 &&
+            !game.isStarted &&
+            game.gameBet < 4e18
+          }
           overlay={BalanceWarning}
         >
           <Badge bg="warning" text="dark" className="ms-4 p-3">
             Game Balance |{" "}
             {game.gameBalance > 0
-              ? game.gameBalance.toFixed(2)
+              ? (game.gameBalance / 1e18).toFixed(2)
               : game.gameBalance}{" "}
             LBC
           </Badge>
         </OverlayTrigger>
+
+        <Badge bg="warning" text="dark" className="ms-4 p-3">
+          Bet Value |{" "}
+          {game.gameBet > 0 ? (game.gameBet / 1e18).toFixed(2) : game.gameBet}{" "}
+          LBC
+        </Badge>
       </h2>
     </>
   );
