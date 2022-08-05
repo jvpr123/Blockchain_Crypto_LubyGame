@@ -2,8 +2,8 @@ import { Card } from "react-bootstrap";
 
 import { GameContextProvider } from "../../../context/game-ctx";
 
-import GameStates from "./states/GameStates";
-import Rules from "./rules/Rules";
+import GameStates from "./states-area/GameStates";
+import Rules from "./rules-area/Rules";
 import PlayArea from "./play-area/PlayArea";
 
 const Game = () => {

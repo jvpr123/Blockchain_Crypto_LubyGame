@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { Card, Button, OverlayTrigger } from "react-bootstrap";
 
-import MetamaskContext from "../../../../context/metamask-ctx";
-import GameContext from "../../../../context/game-ctx";
+import MetamaskContext from "../../../../../context/metamask-ctx";
+import GameContext from "../../../../../context/game-ctx";
 
-import NetworkWarning from "../../../warnings/NetworkWarning";
+import NetworkWarning from "../../../../warnings/NetworkWarning";
 
 const InviteToStart = () => {
   const { network } = useContext(MetamaskContext);
@@ -14,7 +14,7 @@ const InviteToStart = () => {
     <>
       <Card.Header className="mx-auto">
         <Card.Title className="text-center">
-          <h2 className="mb-3">Are you ready to start?</h2>
+          <h1 className="mb-3">Are you ready to start?</h1>
           <h3>Show me your skills 😎</h3>
         </Card.Title>
       </Card.Header>

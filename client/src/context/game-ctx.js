@@ -25,6 +25,14 @@ const gameReducer = (latestState, action) => {
     };
   }
 
+  if (action.type === "END_GAME") {
+    return {
+      ...gameInitialState,
+      gameBalance: latestState.gameBalance,
+      gameBet: latestState.gameBet,
+    };
+  }
+
   if (action.type === "REGISTER_RIGHT_ANSWER") {
     return {
       ...latestState,
@@ -94,8 +102,8 @@ export const GameContextProvider = ({ children }) => {
 
   // Calls startGame contract function to bet 4 LBC an start playing
   const handleStartGame = async () => {
-    // await contract.methods.approve(betValue).send(credentials);
-    // await contract.methods.startGame(betValue).send(credentials);
+    await contract.methods.approve(betValue).send(credentials);
+    await contract.methods.startGame(betValue).send(credentials);
     await handleUpdateGameBalance();
 
     dispatchGame({
@@ -127,7 +135,8 @@ export const GameContextProvider = ({ children }) => {
 
   // Calls claimBalance() contract function to transfer amount gambled to wallet
   const handleClaimBalance = async () => {
-    await contract.methods.claimBalance(account.address).send(credentials);
+    await contract.methods.claimBalance(0).send(credentials);
+    dispatchGame({ type: "END_GAME" });
     await handleUpdateGameBalance();
   };
 

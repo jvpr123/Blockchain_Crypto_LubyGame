@@ -1,15 +1,15 @@
 const Rules = () => {
   return (
     <div>
-      <div>
-        <h2>
+      <div className="mt-4" >
+        <h1>
           Wanna play? Follow this instructions and pay attention to the rules:
-        </h2>
+        </h1>
       </div>
 
       <div>
-        <h4>
-          <ol className="mt-4 ms-4">
+        <h3>
+          <ol className="mt-5 ms-4">
             <li className="mt-3">
               Click the Start Game button to bet 4 LBC and increase you game
               balance to start playing.
@@ -26,7 +26,7 @@ const Rules = () => {
               Right answers worth +1 LBC and wrong answers -1 LBC.
             </li>
           </ol>
-        </h4>
+        </h3>
       </div>
     </div>
   );
