@@ -17,7 +17,7 @@ const GameStates = () => {
     };
 
     update();
-  }, [handleUpdateGameBalance]);
+  }, [handleUpdateGameBalance, game.gameBalance, game.gameBet]);
 
   return (
     <>
