@@ -88,7 +88,7 @@ export const GameContextProvider = ({ children }) => {
 
   // Updates current addres tokens amount in wallet and gambled in game
   const handleUpdateGameBalance = useCallback(async () => {
-    if (contract["_address"] && contract.methods) {
+    if (contract["_address"] && contract.methods && account.address) {
       const bet = await contract.methods
         .getBalanceIndividual()
         .call(credentials);

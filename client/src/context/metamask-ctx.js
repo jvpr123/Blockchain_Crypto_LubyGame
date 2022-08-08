@@ -9,8 +9,8 @@ import {
 import Web3 from "web3";
 import LubyGameContract from "../contracts/LubyGame.json";
 
-const accountIntialState = { address: "No account connected", balance: 0 };
-const networkIntialState = { network: "No account connected", isValid: false };
+const accountIntialState = { address: undefined, balance: 0 };
+const networkIntialState = { network: undefined, isValid: false };
 
 const accountReducer = (latestState, action) => {
   if (action.type === "ADDRESS_UPDATE") {
@@ -132,18 +132,25 @@ export const MetamaskContextProvider = ({ children }) => {
   }, [web3]);
 
   const handleVerifyOwner = async () => {
-    const ownerAddress = await contract.methods
-      .owner()
-      .call({ from: account.address });
+    if (account.address) {
+      const ownerAddress = await contract.methods
+        .owner()
+        .call({ from: account.address });
 
-    return ownerAddress === account.address ? true : false;
+      return ownerAddress === account.address ? true : false;
+    }
   };
 
-  const handleGetContractBalance = async () =>
-    await contract.methods.getBalance(account.address).call();
+  const handleGetContractBalance = async () => {
+    if (account.address) {
+      await contract.methods.getBalance(account.address).call();
+    }
+  };
 
-  const handleWithdrawContractBalance = async () =>
-    await contract.methods.withdraw().send({ from: account.address });
+  const handleWithdrawContractBalance = async () => {
+    if (account.address)
+      await contract.methods.withdraw().send({ from: account.address });
+  };
 
   return (
     <MetamaskContext.Provider

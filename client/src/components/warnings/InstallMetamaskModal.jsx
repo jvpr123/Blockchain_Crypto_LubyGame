@@ -23,9 +23,9 @@ const InstallMetamaskModal = () => {
       onEnter={() => setTimeout(() => {}, 1000)}
     >
       <Modal.Header>
-        <Modal.Title>Metamask extension required!</Modal.Title>
+        <Modal.Title className="fs-2">Metamask extension required!</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="fs-4">
         <p>
           To play this game you need Metamask to manage your wallets and
           establish a connection to the Ethereum network.
@@ -36,7 +36,7 @@ const InstallMetamaskModal = () => {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={handleRedirect}>
+        <Button className="fs-4" variant="primary" onClick={handleRedirect}>
           Install Metamask
         </Button>
       </Modal.Footer>

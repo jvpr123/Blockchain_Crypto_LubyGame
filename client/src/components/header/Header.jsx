@@ -18,7 +18,9 @@ const Header = () => {
   };
 
   const handleContractBalance = async () => {
-    if (isOwnerConnected) {
+    const owner = await metamaskCtx.handleVerifyOwner();
+
+    if (owner === metamaskCtx.account.address) {
       const balance = await metamaskCtx.handleGetContractBalance();
       setContractBalance(balance);
     }
