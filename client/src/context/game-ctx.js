@@ -135,7 +135,12 @@ export const GameContextProvider = ({ children }) => {
 
   // Calls claimBalance() contract function to transfer amount gambled to wallet
   const handleClaimBalance = async () => {
-    await contract.methods.claimBalance(0).send(credentials);
+    if (game.rightAnswers > 0) {
+      game.rightAnswers === game.totalQuestions
+        ? await contract.methods.claimBalance(answerValue).send(credentials)
+        : await contract.methods.claimBalance(0).send(credentials);
+    }
+
     dispatchGame({ type: "END_GAME" });
     await handleUpdateGameBalance();
   };

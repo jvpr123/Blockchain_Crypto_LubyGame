@@ -42,9 +42,7 @@ const InviteToStart = () => {
               text="dark"
               className="w-100 mx-auto my-3 p-4 roudend-4"
               onClick={handleStartGame}
-              disabled={
-                !network.isValid || (game.gameBalance < 4 && game.gameBet < 4)
-              }
+              disabled={!network.isValid || game.gameBalance < 4e18}
             >
               <h2>Start Game</h2>
             </Button>
