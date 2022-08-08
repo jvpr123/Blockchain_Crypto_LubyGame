@@ -51,6 +51,9 @@ const MetamaskContext = createContext({
   handleRequestAccountConnection: async () => {},
   handleGetNetwork: async () => {},
   handleGetContractInstance: async () => {},
+  handleVerifyOwner: async () => {},
+  handleGetContractBalance: async () => {},
+  handleWithdrawContractBalance: async () => {},
 });
 
 export const MetamaskContextProvider = ({ children }) => {
@@ -128,6 +131,20 @@ export const MetamaskContextProvider = ({ children }) => {
     setContract(contract);
   }, [web3]);
 
+  const handleVerifyOwner = async () => {
+    const ownerAddress = await contract.methods
+      .owner()
+      .call({ from: account.address });
+
+    return ownerAddress === account.address ? true : false;
+  };
+
+  const handleGetContractBalance = async () =>
+    await contract.methods.getBalance(account.address).call();
+
+  const handleWithdrawContractBalance = async () =>
+    await contract.methods.withdraw().send({ from: account.address });
+
   return (
     <MetamaskContext.Provider
       value={{
@@ -140,6 +157,9 @@ export const MetamaskContextProvider = ({ children }) => {
         handleRequestAccountConnection,
         handleGetNetwork,
         handleGetContractInstance,
+        handleVerifyOwner,
+        handleGetContractBalance,
+        handleWithdrawContractBalance,
       }}
     >
       {children}
